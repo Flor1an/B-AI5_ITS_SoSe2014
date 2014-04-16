@@ -16,7 +16,7 @@ package teil1_Pseudozufallszahlengenerierung;
  * 
  */
 
-public class main {
+public class _run {
 
 	public static void main(String[] args) {
 		LCG lcg = new LCG(111);

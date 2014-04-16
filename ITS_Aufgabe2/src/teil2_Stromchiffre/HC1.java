@@ -1,13 +1,4 @@
 package teil2_Stromchiffre;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-
-import teil1_Pseudozufallszahlengenerierung.LCG;
-
 /**
  * 2. Stromchiffre   
  * 
@@ -25,56 +16,63 @@ import teil1_Pseudozufallszahlengenerierung.LCG;
  * (z.B. mittels „diff“), dass beide Dateien identische Inhalte besitzen.   
  * Arbeiten Sie mit Input/Outputstreams und vermeiden Sie die Verwendung von 
  * „Buffered Reader“  oder „Buffered Writer“ – Klassen! 
- * 
  */
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+
+import teil1_Pseudozufallszahlengenerierung.LCG;
 
 public class HC1 {
-	private static long x0;
-	private static File messagePath;
-	private static File chiffrePath;
+	private static final String LOCATION = "src/teil2_Stromchiffre/Files/";
 
-	public HC1(long x0, File message, File chiffre) {
+	private static long x0;
+	private static String messageFilename;
+	private static String chiffreFilename;
+
+	public HC1(long x0, String messageFilename, String chiffreFilename) {
 		HC1.x0 = x0;
-		HC1.messagePath = message;
-		HC1.chiffrePath = chiffre;
+		HC1.messageFilename = messageFilename;
+		HC1.chiffreFilename = chiffreFilename;
 	}
 
 	public void encryt() {
 		System.out.println("Starting encryption...");
 		
-		crypt(x0, messagePath, chiffrePath);
+		crypt(x0, messageFilename, chiffreFilename);
 		
 		System.out.println("encrypted.");
-
 	}
 
 	public void decrypt() {
 		System.out.println("Starting decryption...");
 		
-		crypt(x0, chiffrePath, messagePath);
+		crypt(x0, chiffreFilename, messageFilename);
 		
 		System.out.println("decrypted.");
 	}
 
-	private void crypt(long x0, File inputPath, File outputPath) {
+	private void crypt(long x0, String inputFilename, String outputFilename) {
 		try {
 
 			LCG lcg = new LCG(x0);
 
-			FileInputStream input = new FileInputStream(inputPath);
+			FileInputStream message = new FileInputStream(LOCATION + inputFilename);
 
-			FileOutputStream output = new FileOutputStream(outputPath);
+			FileOutputStream chiffre = new FileOutputStream(LOCATION + outputFilename);
 
 			long m;
-			while (input.available() > 0) {
-				m = input.read();
+			while (message.available() > 0) {
+				m = message.read();
 				m = m ^ lcg.nextValue(); //m XOR k
-				output.write((int) m);
+				chiffre.write((int) m);
 			}
 			
-			input.close();
-			output.close();
+			message.close();
+			chiffre.close();
 		} catch (Exception e) {
 			System.err.println(e);
 		}
