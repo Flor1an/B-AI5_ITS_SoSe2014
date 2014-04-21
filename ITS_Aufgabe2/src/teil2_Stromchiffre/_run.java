@@ -19,19 +19,17 @@ package teil2_Stromchiffre;
  * „Buffered Reader“  oder „Buffered Writer“ – Klassen! 
  */
 
-import java.io.File;
-
 public class _run {
 
-	private static final long x0 = 111;
-	private static final String message = "Message.txt";
-	private static final String chiffre = "Chiffre.txt";
-
 	public static void main(String[] args) {
-		HC1 prog = new HC1(x0, message, chiffre);
 
-		prog.encryt();
-		// prog.decrypt();
+		long x0 = 111;
+        String message = "src/teil2_Stromchiffre/Files/Message.txt",
+               chiffre = "src/teil2_Stromchiffre/Files/Chiffre.txt";
+
+		HC1 prog = new HC1(x0);
+
+		prog.crypt(message, chiffre);
+		//prog.crypt(chiffre, message);
 	}
-
 }

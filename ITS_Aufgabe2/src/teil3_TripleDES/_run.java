@@ -1,8 +1,6 @@
 package teil3_TripleDES;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+
 /**
  * 3. TripleDES als Blockchiffre 
  * 
@@ -49,15 +47,15 @@ public class _run {
 		// String destFile = args[2];
 		// String mode = args[3];
 		
-		// String sourceFile = "Chiffre.pdf";
-		// String keyFile = "3DESTest.key";
-		// String destFile = "3DESTest.enc";
-		// OperationMode mode = OperationMode.ENCRYPT;
+		// String sourceFile = "src/teil3_TripleDES/Files/Chiffre.pdf";
+		// String keyFile = "src/teil3_TripleDES/Files/3DESTest.key";
+		// String destFile = "src/teil3_TripleDES/Files/3DESTest.enc";
+		// OperationMode mode = "Encrypt";
 		
-		String sourceFile = "3DESTest.enc";
-		String keyFile = "3DESTest.key";
-		String destFile = "Chiffre.pdf";
-		OperationMode mode = OperationMode.DECRYPT;
+		String sourceFile = "src/teil3_TripleDES/Files/3DESTest.enc";
+		String keyFile = "src/teil3_TripleDES/Files/3DESTest.key";
+		String destFile = "src/teil3_TripleDES/Files/Chiffre.pdf";
+		String mode = "Decrypt";
 
 		TripleDES tripleDES = new TripleDES(sourceFile, keyFile, destFile, mode);
 

@@ -18,61 +18,38 @@ package teil2_Stromchiffre;
  * „Buffered Reader“  oder „Buffered Writer“ – Klassen! 
  */
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
+
 
 import teil1_Pseudozufallszahlengenerierung.LCG;
 
 public class HC1 {
-	private static final String LOCATION = "src/teil2_Stromchiffre/Files/";
 
-	private static long x0;
-	private static String messageFilename;
-	private static String chiffreFilename;
+	private long x0;
 
-	public HC1(long x0, String messageFilename, String chiffreFilename) {
-		HC1.x0 = x0;
-		HC1.messageFilename = messageFilename;
-		HC1.chiffreFilename = chiffreFilename;
+	public HC1(long x0) {
+		this.x0 = x0;
 	}
 
-	public void encryt() {
-		System.out.println("Starting encryption...");
-		
-		crypt(x0, messageFilename, chiffreFilename);
-		
-		System.out.println("encrypted.");
-	}
 
-	public void decrypt() {
-		System.out.println("Starting decryption...");
-		
-		crypt(x0, chiffreFilename, messageFilename);
-		
-		System.out.println("decrypted.");
-	}
-
-	private void crypt(long x0, String inputFilename, String outputFilename) {
+	public void crypt(String inputFile, String outputFile) {
 		try {
 
-			LCG lcg = new LCG(x0);
-
-			FileInputStream message = new FileInputStream(LOCATION + inputFilename);
-
-			FileOutputStream chiffre = new FileOutputStream(LOCATION + outputFilename);
+			LCG lcg = new LCG(this.x0);
+			FileInputStream input = new FileInputStream(inputFile);
+			FileOutputStream output = new FileOutputStream(outputFile);
 
 			long m;
-			while (message.available() > 0) {
-				m = message.read();
+			while (input.available() > 0) {
+				m = input.read();
 				m = m ^ lcg.nextValue(); //m XOR k
-				chiffre.write((int) m);
+                output.write((int) m);
 			}
-			
-			message.close();
-			chiffre.close();
+
+            input.close();
+            output.close();
+            System.out.println("done");
 		} catch (Exception e) {
 			System.err.println(e);
 		}

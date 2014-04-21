@@ -19,7 +19,9 @@ package teil1_Pseudozufallszahlengenerierung;
 public class _run {
 
 	public static void main(String[] args) {
+		
 		LCG lcg = new LCG(111);
+		
 		for (int i = 0; i < 10; i++) {
 			System.err.println(lcg.nextValue());
 		}

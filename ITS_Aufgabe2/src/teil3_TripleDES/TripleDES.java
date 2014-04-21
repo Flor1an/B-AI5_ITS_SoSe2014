@@ -38,7 +38,6 @@ package teil3_TripleDES;
  */
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 public class TripleDES {
@@ -49,14 +48,11 @@ public class TripleDES {
 
 	private static final String LOCATION = "src/teil3_TripleDES/Files/";
 
-	public TripleDES(String messageFilename, String key,
-			String chiffreFilename, OperationMode mode) {
+	public TripleDES(String messageFilename, String key, String chiffreFilename, String mode) {
 		try {
 
-			FileInputStream message = new FileInputStream(LOCATION
-					+ messageFilename);
-			FileOutputStream chiffre = new FileOutputStream(LOCATION
-					+ chiffreFilename);
+			FileInputStream message = new FileInputStream(LOCATION + messageFilename);
+			FileOutputStream chiffre = new FileOutputStream(LOCATION + chiffreFilename);
 
 			readKeyFile(key);
 
@@ -74,10 +70,10 @@ public class TripleDES {
 
 				chiffre.write(c, 0, 8);
 
-				if (mode == OperationMode.ENCRYPT) {
+				if (mode.equals("Encrypt")) {
 					c = ede(c);
 
-				} else if (mode == OperationMode.DECRYPT) {
+				} else if (mode.equals("Decrypt")) {
 					c = ede(m);
 				}
 			}
