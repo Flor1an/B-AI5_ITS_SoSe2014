@@ -26,7 +26,7 @@ public class LCG {
 	private long x;
 
 	public LCG(long x0) {
-		this.x = x0;
+		this.x = x0 % N;
 	}
 
 	public long nextValue() {

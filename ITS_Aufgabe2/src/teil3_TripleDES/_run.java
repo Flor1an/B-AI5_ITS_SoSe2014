@@ -18,13 +18,13 @@ package teil3_TripleDES;
  * 		Byte 25-32: 8 Bytes für den Initialisierungsvektor zum Betrieb im CFB - Modus 
  * 	3. Dateiname der Ausgabedatei 
  * 	4. Status-String zur Angabe der gewünschten Operation:  
- * 		encrypt – Verschlüsselung der Datei 
- * 		decrypt – Entschlüsselung der Datei 
+ * 		encrypt : Verschlüsselung der Datei 
+ * 		decrypt : Entschlüsselung der Datei 
  *
  *
- * b. Testen Sie Ihre Implementierung, indem Sie die Datei „3DESTest.enc“ 
+ * b. Testen Sie Ihre Implementiewriterung, indem Sie die Datei "3DESTest.enc" 
  * entschlüsseln (Tipp: Ergebnis ist eine PDF-Datei). Schlüssel und 
- * Initialisierungsvektor finden Sie in der Datei „3DESTest.key“ . 
+ * Initialisierungsvektor finden Sie in der Datei "3DESTest.key" . 
  * 
  *  # Benutzen Sie als DES-Implementierung die mitgelieferte Datei DES.java ! 
  *  
@@ -47,17 +47,22 @@ public class _run {
 		// String destFile = args[2];
 		// String mode = args[3];
 		
-		// String sourceFile = "src/teil3_TripleDES/Files/Chiffre.pdf";
-		// String keyFile = "src/teil3_TripleDES/Files/3DESTest.key";
-		// String destFile = "src/teil3_TripleDES/Files/3DESTest.enc";
-		// OperationMode mode = "Encrypt";
+//		 String sourceFile = "Message.txt";
+//		 String keyFile = "3DESTest.key";
+//		 String destFile = "Crypt.enc";
+//		 String mode = "Encrypt";
+//		 
+//			String sourceFile = "Crypt.enc";
+//			String keyFile = "3DESTest.key";
+//			String destFile = "Message2.txt";
+//			String mode = "Decrypt";
 		
-		String sourceFile = "src/teil3_TripleDES/Files/3DESTest.enc";
-		String keyFile = "src/teil3_TripleDES/Files/3DESTest.key";
-		String destFile = "src/teil3_TripleDES/Files/Chiffre.pdf";
+		String sourceFile = "3DESTest.enc";
+		String keyFile = "3DESTest.key";
+		String destFile = "Chiffre.pdf";
 		String mode = "Decrypt";
 
-		TripleDES tripleDES = new TripleDES(sourceFile, keyFile, destFile, mode);
+		new TripleDES(sourceFile, keyFile, destFile, mode);
 
 	}
 }

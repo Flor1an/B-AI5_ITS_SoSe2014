@@ -41,8 +41,7 @@ public class HC1 {
 			FileOutputStream output = new FileOutputStream(outputFile);
 
 			long m;
-			while (input.available() > 0) {
-				m = input.read();
+			while ((m = input.read()) >= 0) {
 				m = m ^ lcg.nextValue(); //m XOR k
                 output.write((int) m);
 			}

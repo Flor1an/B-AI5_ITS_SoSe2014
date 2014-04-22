@@ -48,7 +48,8 @@ public class TripleDES {
 
 	private static final String LOCATION = "src/teil3_TripleDES/Files/";
 
-	public TripleDES(String messageFilename, String key, String chiffreFilename, String mode) {
+	public TripleDES(String messageFilename, String key,
+			String chiffreFilename, String mode) {
 		try {
 
 			FileInputStream message = new FileInputStream(LOCATION + messageFilename);
@@ -59,16 +60,16 @@ public class TripleDES {
 			byte[] c = ede(iv);
 
 			byte[] m = new byte[8];
-
+			int l=0;
 			// in 8-Byte Blöcke zerlegen
-			while ((message.read(m)) > 0) {
+			while ((l = message.read(m)) >= 0) {
 
 				// Stromchiffre
-				for (int j = 0; j < 8; j++) {
+				for (int j = 0; j < l; j++) {
 					c[j] = (byte) (m[j] ^ c[j]);
 				}
 
-				chiffre.write(c, 0, 8);
+				chiffre.write(c, 0, l);
 
 				if (mode.equals("Encrypt")) {
 					c = ede(c);
