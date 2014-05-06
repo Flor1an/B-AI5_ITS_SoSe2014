@@ -98,16 +98,15 @@ public class RSAKeyCreation {
 			// 3. Länge des öffentlichen Schlüssels (integer)
 			dos.writeInt(keyToWrite.getEncoded().length);
 
+			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 			if (keyKind == KeyKind.PRIVATE) {
 				// 4. Privater Schlüssel (Bytefolge) [PKCS8-Format]
 				PKCS8EncodedKeySpec pkcs8 = new PKCS8EncodedKeySpec(keyToWrite.getEncoded());
-				KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 				PrivateKey prvKey = keyFactory.generatePrivate(pkcs8);
 				dos.write(prvKey.getEncoded());
 			} else if (keyKind == KeyKind.PUBLIC) {
 				// 4. Öffentlicher Schlüssel (Bytefolge) [X.509-Format]
 				X509EncodedKeySpec x509 = new X509EncodedKeySpec(keyToWrite.getEncoded());
-				KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 				PublicKey pubKey = keyFactory.generatePublic(x509);
 				dos.write(pubKey.getEncoded());
 			}

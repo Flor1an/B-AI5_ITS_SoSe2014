@@ -121,10 +121,11 @@ public class SendSecureFile {
 			byte[] key = new byte[keyLenght];
 			dis.read(key);
 
+			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+
 			if (keyType == RSAKeyType.PRIVATE) {
 				try {
 					PKCS8EncodedKeySpec prvKeySpec = new PKCS8EncodedKeySpec(key);
-					KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 					prvRSAKey = keyFactory.generatePrivate(prvKeySpec);
 				} catch (Exception e) {
 					System.err.println(e.getMessage());
@@ -132,8 +133,6 @@ public class SendSecureFile {
 			} else if (keyType == RSAKeyType.PUBLIC) {
 				try {
 					X509EncodedKeySpec pubKeySpec = new X509EncodedKeySpec(key);
-					KeyFactory keyFactory;
-					keyFactory = KeyFactory.getInstance("RSA");
 					pubRSAKey = keyFactory.generatePublic(pubKeySpec);
 				} catch (Exception e) {
 					System.err.println(e.getMessage());
