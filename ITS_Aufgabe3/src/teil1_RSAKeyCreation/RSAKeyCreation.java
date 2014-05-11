@@ -40,9 +40,9 @@ import java.security.spec.X509EncodedKeySpec;
  */
 
 public class RSAKeyCreation {
-	static String LOCATION = "src/Files/";
+	static final String LOCATION = "src/Files/";
+	static final int KEYLENGTH = 2048;
 	static String name;
-	static int KEYLENGTH = 2048;
 
 	private enum KeyKind {
 		PUBLIC, PRIVATE

@@ -57,7 +57,10 @@ public class SendSecureFile {
 	}
 
 	public static void main(String[] args) {
-		SendSecureFile ssf = new SendSecureFile("src/Files/Florian.pub", "src/Files/Florian.prv", "src/Files/ITSAufgabe3.pdf",
+		SendSecureFile ssf = new SendSecureFile(
+				"src/Files/Florian.pub", 
+				"src/Files/Florian.prv", 
+				"src/Files/ITSAufgabe3.pdf",
 				"src/Files/Florian.ssf");
 		ssf.start();
 
@@ -159,10 +162,10 @@ public class SendSecureFile {
 
 	private void createSignature() {
 		try {
-			Signature signer = Signature.getInstance("SHA1withRSA");
-			signer.initSign(prvRSAKey);
-			signer.update(secretAESKey.getEncoded());
-			signatureBlock = signer.sign();
+			Signature signature = Signature.getInstance("SHA1withRSA");
+			signature.initSign(prvRSAKey);
+			signature.update(secretAESKey.getEncoded());
+			signatureBlock = signature.sign();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -199,7 +202,7 @@ public class SendSecureFile {
 		}
 
 		try {
-			Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+			Cipher cipher = Cipher.getInstance("AES");
 			cipher.init(Cipher.ENCRYPT_MODE, secretAESKey);
 			encryptedDocument = cipher.doFinal(baos.toByteArray());
 		} catch (Exception e) {

@@ -59,7 +59,10 @@ public class ReceiveSecureFile {
 	}
 
 	public static void main(String[] args) {
-		ReceiveSecureFile rsf = new ReceiveSecureFile("src/Files/Florian.prv", "src/Files/Florian.pub", "src/Files/Florian.ssf",
+		ReceiveSecureFile rsf = new ReceiveSecureFile(
+				"src/Files/Florian.prv",
+				"src/Files/Florian.pub",
+				"src/Files/Florian.ssf",
 				"src/Files/decryptedITSAufgabe3.pdf");
 		rsf.start();
 		// ReceiveSecureFile rsf = new ReceiveSecureFile(
@@ -113,11 +116,12 @@ public class ReceiveSecureFile {
 			int keyLenght = dis.readInt();
 			byte[] key = new byte[keyLenght];
 			dis.read(key);
-
+			
+			
+			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 			if (keyType == RSAKeyType.PRIVATE) {
 				try {
 					PKCS8EncodedKeySpec prvKeySpec = new PKCS8EncodedKeySpec(key);
-					KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 					prvRSAKey = keyFactory.generatePrivate(prvKeySpec);
 				} catch (Exception e) {
 					System.err.println(e.getMessage());
@@ -125,8 +129,6 @@ public class ReceiveSecureFile {
 			} else if (keyType == RSAKeyType.PUBLIC) {
 				try {
 					X509EncodedKeySpec pubKeySpec = new X509EncodedKeySpec(key);
-					KeyFactory keyFactory;
-					keyFactory = KeyFactory.getInstance("RSA");
 					pubRSAKey = keyFactory.generatePublic(pubKeySpec);
 				} catch (Exception e) {
 					System.err.println(e.getMessage());
@@ -184,7 +186,7 @@ public class ReceiveSecureFile {
 	private void decryptDocument() {
 
 		try {
-			Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+			Cipher cipher = Cipher.getInstance("AES");
 			cipher.init(Cipher.DECRYPT_MODE, decryptedAESKey);
 			decryptedDocument = cipher.doFinal(encryptedDocument);
 		} catch (Exception e) {
@@ -209,7 +211,7 @@ public class ReceiveSecureFile {
 			signer.initVerify(pubRSAKey);
 			signer.update(decryptedAESKey.getEncoded());
 			if (!signer.verify(signatureBlock)) {
-				System.err.println("ILLEGAL SIGNATURE");
+				throw new Exception("ILLEGAL SIGNATURE");
 			}
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
